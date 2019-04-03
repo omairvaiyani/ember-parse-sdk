@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+
 import Adapter from '../adapters/application';
 import Serializer from '../serializers/application';
 import DateTransform from '../transforms/date';
@@ -7,8 +9,8 @@ import ParseUser from '../models/parse-user';
 
 export function initialize(application) {
   Adapter.reopen({
-    applicationId : app.get( 'applicationId' ),
-    restApiId     : app.get( 'restApiId' )
+    applicationId : application.applicationId ,
+    restApiId     : application.restApiId
   });
 
   application.register( 'adapter:-parse', Adapter );
