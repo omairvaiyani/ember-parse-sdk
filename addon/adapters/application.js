@@ -4,7 +4,7 @@ import DS from 'ember-data';
 import { capitalize, camelize }  from '@ember/string';
 import { computed }  from '@ember/object';
 import { isEmpty, typeOf }  from '@ember/utils';
-import { merge }  from '@ember/polyfills';
+import { assign }  from '@ember/polyfills';
 
 export default DS.RESTAdapter.extend({
 
@@ -84,7 +84,7 @@ export default DS.RESTAdapter.extend({
   * @function createRecord
   * @description Overrides ember-data function. Because parse-server doesn't
   * return a full set of properties on the responses to updates, we want to
-  * perform a merge of the response properties onto existing data so that the
+  * perform a assign of the response properties onto existing data so that the
   * record maintains latest data.
   */
   createRecord: function( store, type, snapshot ) {
@@ -97,7 +97,7 @@ export default DS.RESTAdapter.extend({
     return new Promise( function( resolve, reject ) {
       adapter.ajax( adapter.buildURL( type.modelName ), 'POST', { data: data } ).then(
         function( json ) {
-          resolve( merge( data, json ) );
+          resolve( assign( data, json ) );
         },
         function( reason ) {
           reject( reason.errors[0] );
@@ -111,7 +111,7 @@ export default DS.RESTAdapter.extend({
   * @function updateRecord
   * @description Overrides ember-data function. Because parse-server doesn't
   * return a full set of properties on the responses to updates, we want to
-  * perform a merge of the response properties onto existing data so that the
+  * perform a assign of the response properties onto existing data so that the
   * record maintains latest data.
   */
   updateRecord: function(store, type, snapshot) {
@@ -161,8 +161,8 @@ export default DS.RESTAdapter.extend({
         function() {
           adapter.ajax( adapter.buildURL( type.modelName, id ), 'PUT', { data: data } ).then(
             function( json ) {
-              // This is the essential bit - merge response data onto existing data.
-              resolve( merge( data, json ) );
+              // This is the essential bit - assign response data onto existing data.
+              resolve( assign( data, json ) );
             },
             function( reason ) {
               reject( reason.errors[0] );

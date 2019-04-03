@@ -2,7 +2,7 @@
 
 import DS from 'ember-data';
 import { isEmpty }  from '@ember/utils';
-import { merge }  from '@ember/polyfills';
+import { assign }  from '@ember/polyfills';
 
 /****************************************************************************
 /* PROPERTIES
@@ -127,8 +127,8 @@ ParseUser.reopenClass({
 			function(response) {
 
 				var serialized = serializer.normalize(model, response);
-				// This is the essential bit - merge response data onto existing data.
-				merge(serialized.data.attributes, data);
+				// This is the essential bit - assign response data onto existing data.
+				assign(serialized.data.attributes, data);
 				var record = store.push(serialized);
 
 				return record;

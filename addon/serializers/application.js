@@ -5,7 +5,7 @@ import { A } from '@ember/array';
 import { capitalize, camelize, dasherize }  from '@ember/string';
 import { singularize, pluralize } from 'ember-inflector';
 import { isEmpty, typeOf, isNone }  from '@ember/utils';
-import { merge }  from '@ember/polyfills';
+import { assign }  from '@ember/polyfills';
 
 export default DS.RESTSerializer.extend({
 
@@ -176,7 +176,7 @@ export default DS.RESTSerializer.extend({
     * @description Overrides ember-data function.
     */
     serializeIntoHash: function( hash, typeClass, snapshot, options ) {
-      merge( hash, this.serialize( snapshot, options ) );
+      assign( hash, this.serialize( snapshot, options ) );
     },
   
   
