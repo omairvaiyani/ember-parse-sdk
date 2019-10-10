@@ -24,19 +24,6 @@ export default DS.RESTAdapter.extend({
 
 
   /**
-  * @function init
-  * @description Set the headers with the good parse-server keys
-  */
-  init: function() {
-    this._super();
-    this.set('headers', {
-      'X-Parse-Application-Id' : this.applicationId,
-      'X-Parse-REST-API-Key'   : this.restApiId
-    });
-  },
-
-
-  /**
   * @function pathForType
   * @description Overrides ember-data function to build the right URLs
   * according to the resource we want to access (class, function, etc.)
